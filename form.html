@@ -6,7 +6,13 @@
     <link rel="preload" href="fonts/PT-Sans-Narrow.woff2" as="font">
     <link rel="preload" href="fonts/PT-Sans-Narrow-Bold.woff2" as="font">
     <link rel="stylesheet" href="css/style.min.css">
-    <title>Форма</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#6b6b6b">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <title>Барбершоп | Форма</title>
   </head>
   <body>
     <header class="header-main">
@@ -22,7 +28,7 @@
               <use class="header-main__logo-img" xlink:href="#icon-logo-desktop"></use>
             </svg></a></div>
       </div>
-      <nav class="nav-main header-main__nav active-menu no-js">
+      <nav class="nav-main header-main__nav nav-main--active no-js">
         <div class="header-main__wrapper">
           <button class="nav-main__open-menu" aria-label="Открыть/Закрыть меню"><span></span></button>
           <ul class="nav-main__items">
@@ -376,7 +382,7 @@
       </div>
       <button class="form-main__submit" type="submit">отправить заявку</button>
     </form>
-    <section class="login-menu login-menu--hidden">
+    <section class="login-menu">
       <h2 class="login-menu__title">личный кабинет</h2>
       <p class="login-menu__hint">Введите свой логин и пароль, чтобы войти</p>
       <form class="login-menu__form" action="#" method="POST">

@@ -13,7 +13,7 @@ var navMain = document.querySelector('.nav-main');
 var currentItem = document.querySelectorAll('.nav-main__link:not([href])');
 
 navMain.classList.remove('no-js');
-navMain.classList.remove('active-menu');
+navMain.classList.remove('nav-main--active');
 
 // ПОЛИФИЛЛ ДЛЯ CLOSEST
 (function (ELEMENT) {
@@ -48,7 +48,9 @@ var ModalMenu = function () {
     value: function openMenu() {
       var _this = this;
 
-      this.elem.classList.add('active-menu');
+      this.elem.classList.remove('nav-main--hidden');
+      this.elem.classList.add('nav-main--active');
+      this.elem.classList.add('animation-play');
 
       document.addEventListener('keydown', function (evt) {
         _this.onEscPressKeydown(evt);
@@ -59,7 +61,9 @@ var ModalMenu = function () {
     value: function closeMenu() {
       var _this2 = this;
 
-      this.elem.classList.remove('active-menu');
+      this.elem.classList.add('nav-main--hidden');
+      this.elem.classList.remove('nav-main--active');
+      this.elem.classList.add('animation-play');
 
       document.removeEventListener('keydown', function (evt) {
         _this2.onEscPressKeydown(evt);
@@ -75,7 +79,7 @@ var ModalMenu = function () {
   }, {
     key: 'onButtonClick',
     value: function onButtonClick() {
-      if (this.elem.classList.contains('active-menu')) {
+      if (this.elem.classList.contains('nav-main--active')) {
         this.closeMenu();
       } else {
         this.openMenu();
@@ -87,7 +91,7 @@ var ModalMenu = function () {
       var _this3 = this;
 
       document.addEventListener('click', function (evt) {
-        if (_this3.elem.classList.contains('active-menu') && !evt.target.closest('nav')) {
+        if (_this3.elem.classList.contains('nav-main--active') && (!evt.target.closest('.nav-main') || evt.target.className === 'header-main__wrapper')) {
           _this3.closeMenu();
         }
       });
@@ -126,7 +130,12 @@ var SliderReview = function () {
     this.last = 0;
     this.current = 0;
     this.timerId = null;
-    this.timerDelay = 3000;
+    this.timerDelay = 6000;
+    // this.startTouch = null;
+    // this.touch = null;
+    // this.currentSlideTouch = null;
+    // this.duration = null;
+    // this.activeDuration = null;
   }
 
   _createClass(SliderReview, [{
@@ -194,6 +203,38 @@ var SliderReview = function () {
       });
 
       this.timer();
+
+      // ========================================  ДОДЕЛАТЬ ====================================================
+
+      // this.elem.addEventListener('touchstart', (evtStart) => {
+      //   this.startTouch = evtStart.targetTouches[0].clientX;
+      //   this.elem.querySelector('slider-reviews__slide--active').classList.remove('slider-reviews__slide--active');
+      // });
+      //
+      // this.elem.addEventListener('touchmove', (evtMove) => {
+      //   if (evtMove.targetTouches.length === 1) {
+      //     this.touch = evtMove.targetTouches[0];
+      //     this.currentSlideTouch = this.elem.querySelector('slider-reviews__slide--active');
+      //     this.duration = this.startTouch - this.touch;
+      //     this.currentSlideTouch.style.right = this.duration + 'px';
+      //   }
+      // });
+      //
+      // this.elem.addEventListener('touchend', () => {
+      //   this.elem.querySelector('slider-reviews__slide--active').classList.remove('slider-reviews__slide--active');
+      //   this.currentSlideTouch.style.right = '';
+      //   this.activeDuration = window.innerWidth / 3;
+      //
+      //   if (Math.abs(event.changedTouches[0].clientX - this.startTouch) > 20) {
+      //     if (event.changedTouches[0].clientX < this.activeDuration) {
+      //       this.changeSlide(this.next);
+      //     } else if ((window.innerWidth - event.changedTouches[0].clientX) < this.activeDuration) {
+      //       this.changeSlide(this.prev);
+      //     }
+      //   }
+      // });
+
+      // ==============================================================================================================
     }
   }, {
     key: 'prev',
@@ -357,12 +398,14 @@ var LoginMenu = function () {
     key: 'showLoginMenu',
     value: function showLoginMenu() {
       this.elem.classList.remove('login-menu--hidden');
+      this.elem.classList.add('login-menu--active');
       body.classList.add('active-modal-menu');
     }
   }, {
     key: 'closeLoginMenu',
     value: function closeLoginMenu() {
       this.elem.classList.add('login-menu--hidden');
+      this.elem.classList.remove('login-menu--active');
       body.classList.remove('active-modal-menu');
     }
   }, {
@@ -380,7 +423,7 @@ var LoginMenu = function () {
   }, {
     key: 'onEscPressKeydown',
     value: function onEscPressKeydown(evt) {
-      if (!this.elem.classList.contains('login-menu--hidden') && evt.keyCode === 27) {
+      if (this.elem.classList.contains('login-menu--active') && evt.keyCode === 27) {
         this.closeLoginMenu();
       }
     }
