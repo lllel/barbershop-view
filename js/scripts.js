@@ -417,3 +417,53 @@ var loginMenu = new LoginMenu({
 });
 
 loginMenu.init();
+
+// PAGE-TOP-MOVE
+
+var PageMove = function () {
+  function PageMove(options) {
+    _classCallCheck(this, PageMove);
+
+    this.elem = options.elem;
+  }
+
+  _createClass(PageMove, [{
+    key: 'pageScroll',
+    value: function pageScroll() {
+      this.elemCoords = this.elem.getBoundingClientRect().top + pageYOffset;
+
+      if (!this.elem.classList.contains('page-top--active') && this.elemCoords > 975) {
+        this.elem.classList.add('page-top--active');
+      }
+
+      if (this.elem.classList.contains('page-top--active') && this.elemCoords < 975) {
+        this.elem.classList.remove('page-top--active');
+      }
+    }
+
+    // onElemClick() {
+    //   console.log(this.elemCoords);
+    // }
+
+  }, {
+    key: 'init',
+    value: function init() {
+      var _this10 = this;
+
+      // this.elem.addEventListener('click', () => {
+      //   this.onElemClick();
+      // });
+      window.addEventListener('scroll', function () {
+        _this10.pageScroll();
+      });
+    }
+  }]);
+
+  return PageMove;
+}();
+
+var pageMove = new PageMove({
+  elem: document.querySelector('.page-top')
+});
+
+pageMove.init();
