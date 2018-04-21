@@ -2018,7 +2018,6 @@ body {
     padding-bottom: 40px; } }
 
 .news {
-  height: auto;
   padding-bottom: 27px;
   background-color: #f8f5f2;
   border-bottom: 1px solid #e5ddd5; }
@@ -2028,6 +2027,7 @@ body {
 
 .news__title {
   padding-top: 65px;
+  margin-bottom: 20px;
   text-align: center; }
 
 .news__review {
@@ -2038,26 +2038,14 @@ body {
 
 .news__container {
   position: relative;
-  margin-top: -1px;
-  width: 1px;
-  height: 1px;
-  min-height: 1px;
-  border: 0;
-  padding: 0;
-  visibility: hidden;
-  cursor: pointer;
-  -webkit-transition: min-height 0.3s ease;
-  transition: min-height 0.3s ease;
-  overflow: hidden; }
+  min-height: 90px;
+  margin-bottom: 17px; }
 
-.news__container--active {
-  width: auto;
-  height: auto;
-  min-height: 80px;
-  margin-top: 19px;
-  visibility: visible;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+.news__wrap {
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease; }
 
 .news__container:hover .news__data-container {
   background-color: #826550; }
@@ -2124,7 +2112,7 @@ body {
   display: block;
   width: 87%;
   min-height: 50px;
-  margin: 45px auto 0;
+  margin: 30px auto 0;
   text-align: center;
   padding: 12px 10px;
   font-size: 18px;
@@ -2148,8 +2136,8 @@ body {
 
 @media (min-width: 768px) {
   .news {
-    padding-top: 80px;
-    padding-bottom: 36px; }
+    padding-top: 76px;
+    padding-bottom: 20px; }
   .news__wrapper {
     padding-left: 20px;
     padding-right: 20px;
@@ -2178,6 +2166,20 @@ body {
       margin: 0 auto; } }
 
 @media (min-width: 768px) {
+  .news__wrap {
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5; }
+  .news__wrap-items {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
   .news__button {
     width: 160px;
     margin: 0;
@@ -2197,7 +2199,8 @@ body {
     left: 0; }
   .news__title {
     width: 50%;
-    padding-top: 3px;
+    padding-top: 0;
+    margin-bottom: 56px;
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
@@ -2209,7 +2212,7 @@ body {
 
 @media (min-width: 1200px) {
   .news {
-    padding: 116px 0 42px; }
+    padding: 110px 0 26px; }
   .news__wrapper {
     -webkit-box-pack: start;
         -ms-flex-pack: start;

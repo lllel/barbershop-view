@@ -40,6 +40,7 @@ var ModalMenu = function () {
     _classCallCheck(this, ModalMenu);
 
     this.elem = options.elem;
+    this.item = this.elem.querySelectorAll('.nav-main__item');
     this.button = this.elem.querySelector('.nav-main__open-menu');
   }
 
@@ -47,6 +48,8 @@ var ModalMenu = function () {
     key: 'openMenu',
     value: function openMenu() {
       var _this = this;
+
+      this.items = document.querySelector('.nav-main__items');
 
       this.elem.classList.remove('nav-main--hidden');
       this.elem.classList.add('nav-main--active');
@@ -292,30 +295,24 @@ var News = function () {
     _classCallCheck(this, News);
 
     this.elem = options.elem;
-    this.news = this.elem.querySelectorAll('.news__container');
-    this.newsLength = this.elem.querySelectorAll('.news__container').length;
+    this.wrap = this.elem.querySelector('.news__wrap');
+    this.wrapItems = this.wrap.querySelector('.news__wrap-items');
+    this.wrapHeight = this.wrapItems.clientHeight;
     this.button = this.elem.querySelector('.news__button');
-    this.showCount = 2;
   }
 
   _createClass(News, [{
     key: 'hideNews',
     value: function hideNews() {
-      for (var i = this.showCount; i < this.newsLength; i++) {
-        this.news[i].classList.remove('news__container--active');
-      }
-
       this.elem.classList.remove('news--active');
+      this.wrap.style.height = 0 + 'px';
       this.button.textContent = 'показать все';
     }
   }, {
     key: 'showNews',
     value: function showNews() {
-      for (var i = this.showCount; i < this.newsLength; i++) {
-        this.news[i].classList.add('news__container--active');
-      }
-
       this.elem.classList.add('news--active');
+      this.wrap.style.height = this.wrapHeight + 10 + 'px';
       this.button.textContent = 'скрыть';
     }
   }, {
@@ -425,6 +422,7 @@ var PageMove = function () {
     _classCallCheck(this, PageMove);
 
     this.elem = options.elem;
+    this.countSteps = 0;
   }
 
   _createClass(PageMove, [{
@@ -440,21 +438,46 @@ var PageMove = function () {
         this.elem.classList.remove('page-top--active');
       }
     }
+  }, {
+    key: 'onElemClick',
+    value: function onElemClick() {
+      var _this10 = this;
 
-    // onElemClick() {
-    //   console.log(this.elemCoords);
-    // }
+      var intervalId = setInterval(function () {
+        if (document.documentElement.scrollTop === 0) {
+          clearInterval(intervalId);
 
+          _this10.countSteps = 0;
+        }
+
+        if (_this10.countSteps <= 30) {
+          window.scrollBy(0, -5);
+        }
+
+        if (_this10.countSteps <= 50) {
+          window.scrollBy(0, -20);
+        }
+
+        if (_this10.countSteps <= 70) {
+          window.scrollBy(0, -40);
+        }
+
+        if (_this10.countSteps > 100) {
+          window.scrollBy(0, -60);
+        }
+      }, 15);
+    }
   }, {
     key: 'init',
     value: function init() {
-      var _this10 = this;
+      var _this11 = this;
 
-      // this.elem.addEventListener('click', () => {
-      //   this.onElemClick();
-      // });
+      this.elem.addEventListener('click', function () {
+        _this11.onElemClick();
+      });
+
       window.addEventListener('scroll', function () {
-        _this10.pageScroll();
+        _this11.pageScroll();
       });
     }
   }]);
@@ -467,3 +490,14 @@ var pageMove = new PageMove({
 });
 
 pageMove.init();
+
+var mediaQueryList1200 = window.matchMedia('(min-width: 1200px)');
+
+function isWidthChange1200(mql) {
+  if (mql.matches) {
+    console.log(123);
+  }
+}
+
+isWidthChange1200(mediaQueryList1200);
+isWidthChange1200.addListener(mediaQueryList1200);
