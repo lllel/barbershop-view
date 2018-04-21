@@ -33,6 +33,75 @@ navMain.classList.remove('nav-main--active');
   };
 })(Element.prototype);
 
+// БРЕЙКПОИНТЫ
+var mediaQueryList320 = window.matchMedia('(min-width: 320px) and (max-width: 767px)');
+var mediaQueryList768 = window.matchMedia('(min-width: 768px) and (max-width: 1199px)');
+var mediaQueryList1200 = window.matchMedia('(min-width: 1200px)');
+
+var newsWrapper = document.querySelector('.news__wrapper');
+var newsContainerHidden = document.querySelectorAll('.news__container--hidden');
+var newsWrapElement = document.querySelector('.news__wrap-items');
+
+function isWidthChange320(mql) {
+  if (mql.matches) {
+
+    // Меняем высоту контейнера при каждом брейкпоинте
+    if (document.querySelector('.news')) {
+      news.wrapHeight = 0;
+      news.wrapHeight = news.wrapItems.clientHeight;
+    }
+
+    // Скрывающиеся блоки с новостями по своим местам
+    [].forEach.call(newsContainerHidden, function (it) {
+      if (!newsWrapElement.contains(it)) {
+        newsWrapElement.appendChild(it);
+      }
+    });
+  }
+}
+
+mediaQueryList320.addListener(isWidthChange320);
+isWidthChange320(mediaQueryList320);
+
+function isWidthChange768(mql) {
+  if (mql.matches) {
+
+    // Меняем высоту контейнера при каждом брейкпоинте
+    if (document.querySelector('.news')) {
+      news.wrapHeight = 0;
+      // news.wrapHeight = Math.max(news.wrapItems.clientHeight, 224); // Пофиксить!!!
+      news.wrapHeight = news.wrapItems.clientHeight;
+    }
+
+    // Скрывающиеся блоки с новостями по своим местам
+    [].forEach.call(newsContainerHidden, function (it) {
+      if (!newsWrapElement.contains(it)) {
+        newsWrapElement.appendChild(it);
+      }
+    });
+  }
+}
+
+mediaQueryList768.addListener(isWidthChange768);
+isWidthChange768(mediaQueryList768);
+
+function isWidthChange1200(mql) {
+  if (mql.matches) {
+
+    // Меняем высоту контейнера при каждом брейкпоинте
+    if (document.querySelector('.news')) {
+      news.wrapHeight = 0;
+      news.wrapHeight = news.wrapItems.clientHeight;
+    }
+
+    // Один блок новостей переселяется в другой контейнер
+    newsWrapper.appendChild(newsWrapElement.firstElementChild);
+  }
+}
+
+mediaQueryList1200.addListener(isWidthChange1200);
+isWidthChange1200(mediaQueryList1200);
+
 // ОТКРЫТИЕ/ЗАКРЫТИЕ МОДАЛЬНОГО МЕНЮ
 
 var ModalMenu = function () {
@@ -320,6 +389,10 @@ var News = function () {
     value: function init() {
       var _this8 = this;
 
+      [].forEach.call(this.wrapItems.querySelectorAll('.news__container'), function (it) {
+        it.classList.add('news__container--hidden');
+      });
+
       this.button.addEventListener('click', function (evt) {
         evt.preventDefault();
 
@@ -335,8 +408,10 @@ var News = function () {
   return News;
 }();
 
+var news = null;
+
 if (document.querySelector('.news')) {
-  var news = new News({
+  news = new News({
     elem: document.querySelector('.news')
   });
 
@@ -491,13 +566,71 @@ var pageMove = new PageMove({
 
 pageMove.init();
 
-var mediaQueryList1200 = window.matchMedia('(min-width: 1200px)');
-
-function isWidthChange1200(mql) {
-  if (mql.matches) {
-    console.log(123);
-  }
-}
-
-isWidthChange1200(mediaQueryList1200);
-isWidthChange1200.addListener(mediaQueryList1200);
+// // БРЕЙКПОИНТЫ
+// const mediaQueryList320 = window.matchMedia('(min-width: 320px) and (max-width: 767px)');
+// const mediaQueryList768 = window.matchMedia('(min-width: 768px) and (max-width: 1199px)');
+// const mediaQueryList1200 = window.matchMedia('(min-width: 1200px)');
+//
+// const newsWrapper = document.querySelector('.news__wrapper');
+// const newsContainerHidden = document.querySelectorAll('.news__container--hidden');
+// const newsWrapElement = document.querySelector('.news__wrap-items');
+//
+// function isWidthChange320(mql) {
+//   if (mql.matches) {
+//
+//     // Меняем высоту контейнера при каждом брейкпоинте
+//     if (document.querySelector('.news')) {
+//       news.wrapHeight = 0;
+//       news.wrapHeight = news.wrapItems.clientHeight;
+//     }
+//
+//     // Скрывающиеся блоки с новостями по своим местам
+//     [].forEach.call(newsContainerHidden, (it) => {
+//       if (!newsWrapElement.contains(it)) {
+//         newsWrapElement.appendChild(it);
+//       }
+//     });
+//   }
+// }
+//
+// mediaQueryList320.addListener(isWidthChange320);
+// isWidthChange320(mediaQueryList320);
+//
+// function isWidthChange768(mql) {
+//   if (mql.matches) {
+//
+//     // Меняем высоту контейнера при каждом брейкпоинте
+//     if (document.querySelector('.news')) {
+//       news.wrapHeight = 0;
+//       // news.wrapHeight = Math.max(news.wrapItems.clientHeight, 224); // Пофиксить!!!
+//       news.wrapHeight = news.wrapItems.clientHeight;
+//     }
+//
+//     // Скрывающиеся блоки с новостями по своим местам
+//     [].forEach.call(newsContainerHidden, (it) => {
+//       if (!newsWrapElement.contains(it)) {
+//         newsWrapElement.appendChild(it);
+//       }
+//     });
+//   }
+// }
+//
+// mediaQueryList768.addListener(isWidthChange768);
+// isWidthChange768(mediaQueryList768);
+//
+// function isWidthChange1200(mql) {
+//   if (mql.matches) {
+//
+//     // Меняем высоту контейнера при каждом брейкпоинте
+//     if (document.querySelector('.news')) {
+//       news.wrapHeight = 0;
+//       news.wrapHeight = news.wrapItems.clientHeight;
+//     }
+//
+//     // Один блок новостей переселяется в другой контейнер
+//     newsWrapper.appendChild(newsWrapElement.firstElementChild);
+//   }
+// }
+//
+// mediaQueryList1200.addListener(isWidthChange1200);
+// isWidthChange1200(mediaQueryList1200);
